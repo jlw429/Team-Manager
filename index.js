@@ -15,6 +15,32 @@ const render = require('./lib/htmlrender');
 
 const team = [];
 
+teamInput();
+
+function teamInput() {
+  inquirer
+    .prompt([
+      {
+        type: 'list',
+        message: 'Do you want to add a team engineer or a team intern?',
+        name: 'employeeTitle',
+        choices: ['manager', 'engineer', 'intern'],
+      },
+    ])
+    .then((answers) => {
+      switch (answers.managerChoice) {
+        case 'manager':
+          managerInput();
+          break;
+        case 'engineer':
+          engineerInput();
+          break;
+        case 'intern':
+          internInput();
+          break;
+      }
+    });
+}
 function managerInput (){
     console.log('Hello! Ready to build your team?!');
     inquirer.prompt([
@@ -47,35 +73,41 @@ function managerInput (){
             answers.officeNum
         );
         team.push(manager);
-        teamInput();
     });
 };
-
-function teamInput () {
-    inquirer
-        .prompt([
-        {
-            type: 'list',
-            message: 'Do you want to add a team engineer or a team intern?',
-            name: 'employeeTitle',
-            choices: ['engineer', 'intern'],
-        },
-        ])
-        .then((answers) => {
-          switch (answers.managerChoice) {
-            case 'engineer':
-              engineerInput();
-              break;
-            case 'intern':
-              internInput();
-              break;
-            
-          }
-        })
-
-
-
-}
+function engineerInput() {
+  inquirer.prompt([
+    {
+      type: 'input',
+      message: 'Please input your name:',
+      name: 'name',
+    },
+    {
+      type: 'input',
+      message: 'Please enter your Employee ID Number',
+      name: 'id',
+    },
+    {
+      type: 'input',
+      message: 'please enter your employee email',
+      name: 'email',
+    },
+    {
+      type: 'input',
+      message: 'please enter your github ID',
+      name: 'github',
+    },
+  ])
+  .then((answers) => {
+    const engineer = new engineer(
+      answers.name,
+      answers.id,
+      answers.email,
+      answers.github
+    );
+    team.push(engineer);
+  });
+};
 
  
 
