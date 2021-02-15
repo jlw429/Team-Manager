@@ -10,7 +10,7 @@ const fs = require('fs');
 
 //output paths for final
 const OUTPUT_DIR = path.resolve(__dirname, "output");
-const outputDir = path.join(OUTPUT_DIR, 'index.html');
+const outputPath = path.join(OUTPUT_DIR, 'index.html');
 const render = require('./lib/htmlrender');
 
 const team = [];
@@ -22,13 +22,13 @@ function teamInput() {
     .prompt([
       {
         type: 'list',
-        message: 'Do you want to add a team engineer or a team intern?',
-        name: 'employeeTitle',
+        message: 'Do you want to add a manager, engineer or a intern?',
+        name: 'employeeTitle', 
         choices: ['manager', 'engineer', 'intern'],
       },
     ])
-    .then((answers) => {
-      switch (answers.managerChoice) {
+    .then(answers => {
+      switch (answers.employeeTitle) {
         case 'manager':
           managerInput();
           break;
@@ -42,7 +42,7 @@ function teamInput() {
     });
 }
 function managerInput (){
-    console.log('Hello! Ready to build your team?!');
+    
     inquirer.prompt([
       {
         type: 'input',
@@ -73,6 +73,7 @@ function managerInput (){
             answers.officeNum
         );
         team.push(manager);
+        completion();
     });
 };
 function engineerInput() {
@@ -99,18 +100,74 @@ function engineerInput() {
     },
   ])
   .then((answers) => {
-    const engineer = new engineer(
+    const engineer = new Engineer(
       answers.name,
       answers.id,
       answers.email,
       answers.github
     );
     team.push(engineer);
+    completion();
+  });
+};
+function internInput() {
+  inquirer.prompt([
+    {
+      type: 'input',
+      message: 'Please input your name:',
+      name: 'name',
+    },
+    {
+      type: 'input',
+      message: 'Please enter your Employee ID Number',
+      name: 'id',
+    },
+    {
+      type: 'input',
+      message: 'please enter your employee email',
+      name: 'email',
+    },
+    {
+      type: 'input',
+      message: 'please enter your current school',
+      name: 'school',
+    },
+  ])
+  .then((answers) => {
+    const intern = new Intern(
+      answers.name,
+      answers.id,
+      answers.email,
+      answers.school
+    );
+    team.push(intern);
+    completion();
   });
 };
 
- 
-
-
-
-
+function completion() {
+  inquirer.prompt([
+    {
+      type: 'list',
+      message: 'Do you have more employees to add?',
+      name: 'continueComplete',
+      choices: ['yes', 'no'],
+    },
+  ])
+  .then(answers => {
+      switch (answers.continueComplete) {
+        case 'yes':
+          teamInput();
+          break;
+        case 'no':
+          outToRender();
+          break;
+      };
+  });
+};
+function outToRender() {
+  if (!fs.existsSync(OUTPUT_DIR)) {
+    fs.mkdirSync(OUTPUT_DIR);
+  }
+  fs.writeFileSync(outputPath, render(team), 'utf-8');
+}
