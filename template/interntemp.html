@@ -1,9 +1,10 @@
-<div class="card" style="width: 18rem;">
-    <div class="card-body">
-        <h5 class="card-title bg warning">{{ name }}</h5>
-        <h3 class="card-subtitle bg warning mb-2"><i class="fas fa-graduation-cap">{{ role }}</i></h3>
-        <p>{{id}}</p>
-        <p>{{email}}</p>
-        <p>{{school}}</p>
+<div class="row">
+    <div class="card bg-warning m-3" style="width: 18rem;">
+        <div class="card-body text-center">
+            <h2 class="card-title">{{ name }}</h2>
+            <h3><i class="fas fa-graduation-cap"></i>&nbsp;{{ role }}</h3>
+            <h5>Employee ID#&nbsp;{{ id }}</h5>
+            <h5><a href="mailto:{{ email }}">{{ email }}</a></h5>
+            <h5>{{ school }}</h5>
+        </div>
     </div>
-</div>
