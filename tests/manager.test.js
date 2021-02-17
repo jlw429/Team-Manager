@@ -6,6 +6,6 @@ describe('Manager', () => {
     expect(eng.name).toEqual('Jason');
     expect(eng.id).toEqual(1234);
     expect(eng.email).toEqual('jason@gmail.com');
-    expect(eng.officeNumber).toEqual(77886);
+    expect(eng.officeNum).toEqual(77886);
   });
 });

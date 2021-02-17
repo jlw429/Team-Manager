@@ -18,7 +18,8 @@
   },
   "homepage": "https://github.com/jlw429/TeamManagerHW10#readme",
   "dependencies": {
-    "inquirer": "^7.3.3"
+    "inquirer": "^7.3.3",
+    "jest": "^26.6.3"
   },
   "devDependencies": {}
 }
