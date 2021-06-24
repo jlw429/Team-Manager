@@ -1,4 +1,4 @@
-# TeamManagerHW10
+# TeamManager
 
 ![License](https://img.shields.io/badge/License-MIT-blue.svg 'License Badge')
 
